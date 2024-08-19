@@ -10,15 +10,17 @@ if [ $# -ne 3 ]; then
   exit 1
 fi
 
-POSTGRES_USER_PASSWORD_BASE64=$(echo $RABBITMQ_PASSWORD | base64 -w 0)
-CUSTOM_USER_PASSWORD_BASE64=$(echo $CUSTOM_USER_PASSWORD | base64 -w 0)
-
 kubectl create ns $NAMESPACE || true
 
-kubectl create secret generic postgresql-passwords-secret -n $NAMESPACE \
-  --from-literal=postgres-password=$POSTGRES_USER_PASSWORD_BASE64 \
-  --from-literal=password=$CUSTOM_USER_PASSWORD_BASE64 \
-  --from-literal=replication-password=$CUSTOM_USER_PASSWORD_BASE64
+kubectl create secret generic postgresql-passwords-secret \
+  -n $NAMESPACE \
+  --save-config \
+  --dry-run=client \
+  --from-literal=postgres-password=$POSTGRES_USER_PASSWORD \
+  --from-literal=password=$CUSTOM_USER_PASSWORD \
+  --from-literal=replication-password=$CUSTOM_USER_PASSWORD \
+  -o yaml | \
+  kubectl apply -f -
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update

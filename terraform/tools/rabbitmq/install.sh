@@ -9,8 +9,6 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-RABBITMQ_PASSWORD_BASE64=$(echo $RABBITMQ_PASSWORD | base64 -w 0)
-
 kubectl create ns $NAMESPACE || true
 
 kubectl create secret generic rabbitmq-password-secret -n $NAMESPACE --from-literal=rabbitmq-password=$RABBITMQ_PASSWORD 
