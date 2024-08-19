@@ -58,5 +58,4 @@ variable "github_actions_sa_roles" {
 
 variable "ms_finapp_inout_db_env" {
   type    = string
-  default = "DB_CONNECTION_URL=postgres://postgres:123ASD123s$)s2e1_sdawsd@database:5432/financial_planning\nJWT_SECRET=asuhausdasuseretscasdas129389d8as"
 }
