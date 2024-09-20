@@ -1,6 +1,6 @@
 resource "google_compute_firewall" "allow_https_egress" {
   name     = "allow-https-egress"
-  network  = google_compute_network.main_vpc.name
+  network  = var.vpc_name
   project  = var.project
   priority = 1000
   # enable_logging = true
@@ -18,7 +18,7 @@ resource "google_compute_firewall" "allow_https_egress" {
 
 resource "google_compute_firewall" "allow_http_ingress" {
   name     = "allow-http-ingress"
-  network  = google_compute_network.main_vpc.name
+  network  = var.vpc_name
   project  = var.project
   priority = 1000
 
@@ -40,7 +40,7 @@ resource "google_compute_firewall" "allow_http_ingress" {
 
 resource "google_compute_firewall" "allow_https_ingress" {
   name     = "allow-https-ingress"
-  network  = google_compute_network.main_vpc.name
+  network  = var.vpc_name
   project  = var.project
   priority = 1000
 
@@ -62,7 +62,7 @@ resource "google_compute_firewall" "allow_https_ingress" {
 
 resource "google_compute_firewall" "allow_ssh_ingress" {
   name     = "allow-ssh-ingress"
-  network  = google_compute_network.main_vpc.name
+  network  = var.vpc_name
   project  = var.project
   priority = 1000
 
@@ -79,7 +79,7 @@ resource "google_compute_firewall" "allow_ssh_ingress" {
 
 resource "google_compute_firewall" "allow_health_checks_ingress" {
   name     = "allow-health-checks-ingress"
-  network  = google_compute_network.main_vpc.name
+  network  = var.vpc_name
   project  = var.project
   priority = 1000
 

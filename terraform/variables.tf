@@ -51,11 +51,47 @@ variable "openvpn_vm_config" {
   }
 }
 
+variable "vpc_name" {
+  type = string
+}
+
+variable "subnetworks_configs" {
+  type = map(
+    object({
+      subnetwork_name     = string
+      subnetwork_region   = string
+      subnetwork_ip_range = string
+      secondary_ip_ranges = list(object({
+        range_name    = string
+        ip_cidr_range = string
+      }))
+    })
+  )
+}
+
 variable "github_actions_sa_roles" {
   type    = list(string)
   default = ["roles/container.serviceAgent", "roles/container.clusterViewer", "roles/secretmanager.admin"]
 }
 
+variable "finapp_ms_reports_sa_roles" {
+  type    = list(string)
+  default = ["roles/storage.objectAdmin"]
+}
+
 variable "ms_finapp_inout_db_env" {
+  type = string
+}
+
+variable "postgresql_postgres_password" {
+  type = string
+}
+
+variable "postgresql_user_password" {
+  type = string
+}
+
+variable "reports_bucket_region" {
   type    = string
+  default = "us-east1"
 }
